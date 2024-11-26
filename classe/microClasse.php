@@ -7,7 +7,6 @@ class Micro
     private $_modele;
     private $_garantie;
     private $_interface;
-    private $_certification;
     private $_img;
     private $_prix;
     private $_lienAchat;
@@ -127,27 +126,6 @@ class Micro
 
         return $this;
     }
-
-    /**
-     * Get the value of _certification
-     */ 
-    public function get_certification()
-    {
-        return $this->_certification;
-    }
-
-    /**
-     * Set the value of _certification
-     *
-     * @return  self
-     */ 
-    public function set_certification($_certification)
-    {
-        $this->_certification = $_certification;
-
-        return $this;
-    }
-
     /**
      * Get the value of _img
      */ 

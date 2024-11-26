@@ -1,7 +1,7 @@
 
 </main>
 
-<footer class="center">
-</footer>
+<footer class="center"> lol </footer>
+
 </body>
 </html>
