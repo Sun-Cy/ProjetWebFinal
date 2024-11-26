@@ -18,7 +18,7 @@ CONST ADD_MICRO="";
         $dbResult = $this->_db->query(self::GET_MICRO)->fetchAll();
 
         foreach($dbResult as $row){
-            array_push($microArray, $row);
+            array_push($microArray, new Micro($row));
         }
         return $microArray;
     }

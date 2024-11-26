@@ -1,7 +1,11 @@
-<?php 
+<?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 } 
+include_once("classe/autoloader.php");
+include_once("classe/PDOFactory.php");
+
+$bdd = PDOFactory::getMySQLConnection();
 ?>
 
 <!DOCTYPE html>
