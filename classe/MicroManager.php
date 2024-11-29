@@ -3,10 +3,10 @@
 
 class MicroManager{
     private $_db;
-CONST GET_MICRO="USE Microphone; SELECT mi.idMicro, m.marque,mi.modele,g.garantie,i.interface,mi.image,mi.prix,mi.lienAchat,c.cartouche,mi.frequenceMin,mi.frequenceMax,mi.maxSPL,mi.ratedImpedance,mi.RGB FROM microphone mi JOIN marque m ON mi.idMarque = m.idMarque JOIN garantie g ON mi.idGarantie = g.idGarantie JOIN interface i ON mi.idInterface = i.idInterface JOIN cartouche c ON mi.idCartouche = c.idCartouche";
+CONST GET_MICROS="SELECT mi.idMicro, m.marque,mi.modele,g.garantie,i.interface,mi.image,mi.prix,mi.lienAchat,c.cartouche,mi.frequenceMin,mi.frequenceMax,mi.maxSPL,mi.ratedImpedance,mi.RGB FROM microphone mi JOIN marque m ON mi.idMarque = m.idMarque JOIN garantie g ON mi.idGarantie = g.idGarantie JOIN interface i ON mi.idInterface = i.idInterface JOIN cartouche c ON mi.idCartouche = c.idCartouche ORDER BY idMicro ASC";
 CONST ADD_MICRO="";
 
-CONST GET_MICRO_BY_ID="USE Microphone; SELECT mi.idMicro, m.marque,mi.modele,g.garantie,i.interface,mi.image,mi.prix,mi.lienAchat,c.cartouche,mi.frequenceMin,mi.frequenceMax,mi.maxSPL,mi.ratedImpedance,mi.RGB FROM microphone mi JOIN marque m ON mi.idMarque = m.idMarque JOIN garantie g ON mi.idGarantie = g.idGarantie JOIN interface i ON mi.idInterface = i.idInterface JOIN cartouche c ON mi.idCartouche = c.idCartouche WHERE idMicro = :idMicro;";
+CONST GET_MICRO_BY_ID="SELECT mi.idMicro, m.marque,mi.modele,g.garantie,i.interface,mi.image,mi.prix,mi.lienAchat,c.cartouche,mi.frequenceMin,mi.frequenceMax,mi.maxSPL,mi.ratedImpedance,mi.RGB FROM microphone mi JOIN marque m ON mi.idMarque = m.idMarque JOIN garantie g ON mi.idGarantie = g.idGarantie JOIN interface i ON mi.idInterface = i.idInterface JOIN cartouche c ON mi.idCartouche = c.idCartouche WHERE idMicro = :idMicro;";
 
     public function __construct($db) 
     {
@@ -17,7 +17,10 @@ CONST GET_MICRO_BY_ID="USE Microphone; SELECT mi.idMicro, m.marque,mi.modele,g.g
     public function get_micro(){
         $microArray = array();
 
-        $dbResult = $this->_db->query(self::GET_MICRO)->fetchAll();
+        $query = $this->_db->prepare(self::GET_MICROS);
+        $query->execute();
+        $dbResult = $query->fetchAll();
+
 
         foreach($dbResult as $row){
             array_push($microArray, new Micro($row));
@@ -32,19 +35,7 @@ CONST GET_MICRO_BY_ID="USE Microphone; SELECT mi.idMicro, m.marque,mi.modele,g.g
         $dbResult = $query->fetch();
         
         assert(!empty($dbResult), 'didnt work man');
-  
+        
         return new Micro($dbResult);
-      }
-
-
-
-
-
-
-
-
-
-
-
-      
+      }      
 };
