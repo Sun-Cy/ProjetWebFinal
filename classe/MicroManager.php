@@ -14,7 +14,7 @@ CONST GET_MICRO_BY_ID="SELECT mi.idMicro, m.marque,mi.modele,g.garantie,i.interf
         $this->_db = $db;
     }
 
-    public function get_micro(){
+    public function get_micros(){
         $microArray = array();
 
         $query = $this->_db->prepare(self::GET_MICROS);
