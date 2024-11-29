@@ -7,15 +7,15 @@ class Micro
     private $_modele;
     private $_garantie;
     private $_interface;
-    private $_img;
+    private $_image;
     private $_prix;
     private $_lienAchat;
-    private $_cartridge;
+    private $_cartouche;
     private $_frequenceMin;
     private $_frequenceMax;
     private $_maxSPL;
     private $_ratedImpedance;
-    private $_rgb;
+    private $_RGB;
 
     public function __construct($params = array()){
   
@@ -129,9 +129,9 @@ class Micro
     /**
      * Get the value of _img
      */ 
-    public function get_img()
+    public function get_image()
     {
-        return $this->_img;
+        return $this->_image;
     }
 
     /**
@@ -139,9 +139,9 @@ class Micro
      *
      * @return  self
      */ 
-    public function set_img($_img)
+    public function set_image($_image)
     {
-        $this->_img = $_img;
+        $this->_image = $_image;
 
         return $this;
     }
@@ -189,9 +189,9 @@ class Micro
     /**
      * Get the value of _cartridge
      */ 
-    public function get_cartridge()
+    public function get_cartouche()
     {
-        return $this->_cartridge;
+        return $this->_cartouche;
     }
 
     /**
@@ -199,9 +199,9 @@ class Micro
      *
      * @return  self
      */ 
-    public function set_cartridge($_cartridge)
+    public function set_cartouche($_cartouche)
     {
-        $this->_cartridge = $_cartridge;
+        $this->_cartouche = $_cartouche;
 
         return $this;
     }
@@ -289,9 +289,9 @@ class Micro
     /**
      * Get the value of _rgb
      */ 
-    public function get_rgb()
+    public function get_RGB()
     {
-        return $this->_rgb;
+        return $this->_RGB;
     }
 
     /**
@@ -299,9 +299,9 @@ class Micro
      *
      * @return  self
      */ 
-    public function set_rgb($_rgb)
+    public function set_RGB($_RGB)
     {
-        $this->_rgb = $_rgb;
+        $this->_RGB = $_RGB;
 
         return $this;
     }

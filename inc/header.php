@@ -3,6 +3,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 } 
 include_once("classe/autoloader.php");
+include_once("classe/MicroManager.php");
 include_once("classe/PDOFactory.php");
 
 $bdd = PDOFactory::getMySQLConnection();
@@ -25,6 +26,6 @@ $bdd = PDOFactory::getMySQLConnection();
 
         <nav class="main-menu">
             <ul>
-                <li><a href="index.php">Accueil</a></li>
+            <li><a href="index.php">Accueil</a></li>
             </ul>
         </nav>
