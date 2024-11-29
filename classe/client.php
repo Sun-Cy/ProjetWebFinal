@@ -2,13 +2,14 @@
 class Client {
 
     private $prenom;
+    private $nom;
     private $email;
     private $password;
     private $adresse;
     private $téléphone;
     private $creditCard;
 
-    public function __construct($prenom, $email, $password, $adresse, $téléphone, $creditCard){
+    public function __construct($prenom,$nom, $email, $password, $adresse, $téléphone, $creditCard){
         $this->prenom = $prenom;
         $this->email = $email;
         $this->password = $password;
@@ -20,6 +21,14 @@ class Client {
     // Getters
     public function getPrenom() {
         return $this->prenom;
+    }
+
+    public function getNom() {
+        return $this->nom;
+    }
+
+    public function getNomComplet() {
+        return $this->prenom . " " . $this->nom;
     }
 
     public function getEmail() {
@@ -45,6 +54,10 @@ class Client {
     // Setters
     public function setPrenom($prenom) {
         $this->prenom = $prenom;
+    }
+
+    public function setNom($nom) {
+        $this->nom = $nom;
     }
 
     public function setEmail($email) {

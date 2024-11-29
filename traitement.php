@@ -1,35 +1,43 @@
 <?php
+session_start();
 
 include_once("./inc/autoLoader.php");
+require_once("./classe/PDOFactory.php");
+require_once("./inc/header.php");
 
+$conn = PDOFactory::getMySQLConnection();
 
-// Simulate a stored client object (in a real application, this would come from a database)
-$storedClient = new Client("John", "john@example.com", "password123", "123 Main St", "555-555-5555", new CreditCard(1, "John Doe", "1234567890123456", "12/23", "123", 1));
+$clientManager = new ClientManager($conn);
 
-// Function to handle login
-function login($username, $password) {
-    global $storedClient;
+if (isset($_POST['action'])) {
+    if ($_POST['action'] === 'register') {
+        // Register a new client
+        $prenom = $_POST['prenom'] ?? '';
+        $nom = $_POST['nom'] ?? '';
+        $username = $_POST['username'] ?? '';
+        $email = $_POST['email'] ?? '';
+        $password = $_POST['password'] ?? '';
+        $adresse = $_POST['adresse'] ?? '';
+        $telephone = $_POST['telephone'] ?? '';
 
-    if ($storedClient->getEmail() === $username && $storedClient->getPassword() === $password) {
-        return $storedClient;
-    } else {
-        return null;
+        $newClient = new Client($prenom, $nom, $email, $password, $adresse, $telephone, null);
+        $clientManager->addClient($newClient);
+        echo "Registration successful! You can now log in.";
+    } elseif ($_POST['action'] === 'connexion') {
+        // Attempt to login
+        $email = $_POST['username'] ?? '';
+        $password = $_POST['mdp'] ?? '';
+
+        $client = $clientManager->getClientByEmailAndPassword($email, $password);
+
+        if ($client) {
+            $_SESSION['client'] = serialize($client);
+            echo "Authentification réussie ! Bon magasinage, " . $client->getNomComplet() . ".";
+        } else {
+            echo "Authentification ratée. Veuillez entrez des informations valides..";
+        }
     }
 }
 
-// Check if action is set to 'connexion'
-if (isset($_POST['action']) && $_POST['action'] === 'connexion') {
-    $username = $_POST['username'] ?? '';
-    $password = $_POST['mdp'] ?? '';
-
-    // Attempt to login
-    $client = login($username, $password);
-
-    if ($client) {
-        $_SESSION['client'] = $client;
-        echo "Login successful! Welcome, " . $client->getPrenom() . ".";
-    } else {
-        echo "Login failed. Invalid username or password.";
-    }
-}
+$conn = null;
 ?>
