@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -7,10 +8,26 @@ include_once("classe/MicroManager.php");
 include_once("classe/PDOFactory.php");
 
 $bdd = PDOFactory::getMySQLConnection();
+=======
+<?php 
+require_once("./inc/autoloader.php");
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+} 
+
+if (isset($_REQUEST['action']) && $_REQUEST['action'] == "connexion"){
+    $_SESSION['username'] = $_REQUEST['username']; 
+    
+} elseif (isset($_REQUEST['action']) && $_REQUEST['action'] == "logout"){ 
+
+    $_SESSION = array();
+    session_destroy(); 
+}
+>>>>>>> Stashed changes
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr">     
 
 <head>
     <meta charset="UTF-8">
