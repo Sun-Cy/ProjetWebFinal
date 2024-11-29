@@ -1,14 +1,3 @@
-<<<<<<< Updated upstream
-<?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-} 
-include_once("classe/autoloader.php");
-include_once("classe/MicroManager.php");
-include_once("classe/PDOFactory.php");
-
-$bdd = PDOFactory::getMySQLConnection();
-=======
 <?php 
 require_once("./inc/autoloader.php");
 if (session_status() === PHP_SESSION_NONE) {
@@ -23,7 +12,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == "connexion"){
     $_SESSION = array();
     session_destroy(); 
 }
->>>>>>> Stashed changes
 ?>
 
 <!DOCTYPE html>
