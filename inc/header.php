@@ -20,15 +20,17 @@ if (session_status() === PHP_SESSION_NONE) {
     <header>
         <nav class="main-menu">
             <div class="menu-container">
-                <div class="site-icon">
-                    <img src="icon.png" alt="Site Icon" class="icon">
-                </div>
-                <ul>
-                    <li><a href="index.php">Accueil</a></li>
+                <a href="index.php" class="site-icon">
+                    <img src="img/micIcon.png" alt="Site Icon" class="icon">
+                </a>
+                <ul class="menu-items">
                     <li><a href="listeMicro.php">Microphone</a></li>
                     <li><a href="ajoutMicro.php">Ajout</a></li>
                     <li><a href="review.php">Revue</a></li>
                 </ul>
+                <a href="panier.php" class="site-icon">
+                    <img src="img/shoppingCart.png" alt="Panier Icon" class="icon">
+                </a>
             </div>
         </nav>
     </header>
