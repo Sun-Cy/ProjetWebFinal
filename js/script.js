@@ -1,14 +1,16 @@
 
 //Ecrie par Cerik Caron
-document.addEventListener('DOMContentLoaded', () => {
-    const toggleButton = document.querySelector('.menu-toggle');
-    const menuItems = document.querySelector('.menu-items');
+// pour les etoiles
+let etoile = document.getElementsByClassName("fa-star");
+for(let i = 0; i<etoile.length; i++){
+    etoile[i].addEventListener("click", etoileHighlight);
+};
+console.log(etoile);
 
-    toggleButton.addEventListener('click', () => {
-        menuItems.classList.toggle('show');
-    });
-});
-
+//fontion pour highlight les etoiles
+function etoileHighlight(){
+    this.toggle('checked')
+}
 
 //fin
 
