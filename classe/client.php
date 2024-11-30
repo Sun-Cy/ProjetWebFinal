@@ -1,6 +1,7 @@
 <?php 
 class Client {
 
+    private $id;
     private $prenom;
     private $nom;
     private $email;
@@ -19,6 +20,11 @@ class Client {
     }
 
     // Getters
+    
+    public function getId() {
+        return $this->id;
+    }
+
     public function getPrenom() {
         return $this->prenom;
     }
@@ -52,6 +58,10 @@ class Client {
     }
 
     // Setters
+
+    public function setId($id) {
+        $this->id = $id;
+    }
     public function setPrenom($prenom) {
         $this->prenom = $prenom;
     }
