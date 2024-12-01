@@ -8,17 +8,17 @@ $conn = PDOFactory::getMySQLConnection();?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <h1 class="center">Laisser une revue</h1>
-<form>
+
+<form action="./ajoutReview.php" method="post">
     <!-- List des micros dans la base de donne -->
     <label for="micro">Microphone</label> 
     <select name="micro" id="micro">
         <?php 
-
         $bddResults = $conn->query(
             'SELECT m.idMicro, concat(m.modele, " ",ma.marque) FROM microphone AS m 
             JOIN marque AS ma ON m.idMicro=ma.marque;');
             while($fetchData = $bddResults->fetch()){
-                echo '<option value='.$fetchData[0].'>'.$fetchData[0].'<option>';
+                echo '<option value='.$fetchData[0].'>'.$fetchData[1].'<option>';
             };
         ?>
     </select>
@@ -28,15 +28,21 @@ $conn = PDOFactory::getMySQLConnection();?>
     <input type="text" name="titre" id="titre">
 
     <!-- nombre etoile sur 5 -->
-    <span id="star" class="fa fa-star checked"></span>
-    <span id="star" class="fa fa-star checked"></span>
-    <span id="star" class="fa fa-star checked"></span>
-    <span id="star" class="fa fa-star"></span>
-    <span id="star" class="fa fa-star"></span>
+    <span class="fa fa-star"></span>
+    <span class="fa fa-star"></span>
+    <span class="fa fa-star"></span>
+    <span class="fa fa-star"></span>
+    <span class="fa fa-star"></span>
+    <!-- Use to send the number of star -->
+    <input class="hide" type="text" name="rating" id="rating" value="0">
 
     <!-- texte de la revue -->
+    <textarea name="textRevue" id="textRevue" rows="10" cols="100">Revue</textarea>
 
     <!-- Button submit -->
+    <input type="hidden" name="action" value="ajoutReview">
+    <button type="submit">Envoyer</button>
+
 </form>
 
 <?php include_once("inc/footer.php"); ?>

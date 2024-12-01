@@ -12,7 +12,11 @@
 
 .checked { /* for Star system*/
     color: orange;
-  }
+}
+
+.hide {
+    display: none;
+}
 
 /* Reset default body margin and padding */
 body, html {
