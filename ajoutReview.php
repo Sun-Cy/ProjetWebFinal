@@ -15,10 +15,10 @@ if(isset($_REQUEST['action'])){
             $userId = 0;
         }
         
-        $idMicro = htmlspecialchars($_REQUEST['micro'] ?? "");
-        $titre = htmlspecialchars($_REQUEST['titre'] ?? "");
-        $rating = htmlspecialchars($_REQUEST['rating'] ?? "");
-        $review = htmlspecialchars($_REQUEST['textRevue'] ?? "");
+        $idMicro = htmlspecialchars($_REQUEST['micro']);
+        $titre = htmlspecialchars($_REQUEST['titre']);
+        $rating = htmlspecialchars($_REQUEST['rating']);
+        $review = htmlspecialchars($_REQUEST['textRevue']);
 
         $addMicroReview->bindParam($idMicro, $userId, $titre, $rating, $review);
         $addMicroReview->execute();
