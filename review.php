@@ -12,10 +12,12 @@ $conn = PDOFactory::getMySQLConnection();?>
 <form action="./ajoutReview.php" method="post">
     <!-- List des micros dans la base de donne -->
     <label for="micro">Microphone</label> 
-    <select name="micro" id="micro">
+    <select name="micro" id="micro" onchange="saveInfo('micro')" onload="loadInfo('micro')">
+        <option value="test">test</option>
+        <option value="test">test</option>
         <?php 
         $bddResults = $conn->query(
-            'SELECT m.idMicro, concat(m.modele, " ",ma.marque) FROM microphone AS m 
+            'SELECT m.idMicro, concat(m.modele, " ", ma.marque) FROM microphone AS m 
             JOIN marque AS ma ON m.idMicro=ma.marque;');
             while($fetchData = $bddResults->fetch()){
                 echo '<option value='.$fetchData[0].'>'.$fetchData[1].'<option>';
@@ -24,8 +26,7 @@ $conn = PDOFactory::getMySQLConnection();?>
     </select>
 
     <!-- Titre de la revue -->
-    <label for="titre">Titre</label>
-    <input type="text" name="titre" id="titre">
+    <input type="text" name="titre" id="titre" value="Titre" onchange="saveInfo('titre')" onload="loadInfo('titre')">
 
     <!-- nombre etoile sur 5 -->
     <span class="fa fa-star"></span>
@@ -33,15 +34,16 @@ $conn = PDOFactory::getMySQLConnection();?>
     <span class="fa fa-star"></span>
     <span class="fa fa-star"></span>
     <span class="fa fa-star"></span>
+
     <!-- Use to send the number of star -->
     <input class="hide" type="text" name="rating" id="rating" value="0">
 
     <!-- texte de la revue -->
-    <textarea name="textRevue" id="textRevue" rows="10" cols="100">Revue</textarea>
+    <textarea name="textRevue" id="textRevue" rows="10" cols="100" oninput="saveInfo('textRevue')" onload="loadInfo('textRevue')">Revue</textarea>
 
     <!-- Button submit -->
     <input type="hidden" name="action" value="ajoutReview">
-    <button type="submit">Envoyer</button>
+    <button type="submit" onclick="effaceCookie()">Envoyer</button>
 
 </form>
 

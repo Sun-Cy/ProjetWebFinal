@@ -15,7 +15,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <script src="js/script.js" defer></script>
 </head>
 
-<body>
+<body onload="loadInfo()">
 
     <header>
         <nav class="main-menu">

@@ -6,16 +6,24 @@ $conn = PDOFactory::getMySQLConnection();
 
 $addMicroReview = $conn->prepare('INSERT INTO Microphone (idMicro, idUser, titre, score, textRevue) VALUES (:idMicro, :idUser, :titre, :score, :textRevue)');
 
-if(isset($_POST['action'])){
-    if($_POST['action'] === 'register'){
-        $userId = $_SESSION['client'] ?? '0';
-        $idMicro = htmlspecialchars($_POST['micro'] ?? '');
-        $titre = htmlspecialchars($_POST['titre'] ?? '');
-        $rating = htmlspecialchars($_POST['rating'] ?? '');
-        $review = htmlspecialchars($_POST['textRevue'] ?? '');
+if(isset($_REQUEST['action'])){
+    if($_REQUEST['action'] === 'ajoutReview'){
+        if(isset($_SESSION['client'])){
+            $userId = $_SESSION['client']->getId();
+        }
+        else{
+            $userId = 0;
+        }
+        
+        $idMicro = htmlspecialchars($_REQUEST['micro'] ?? "");
+        $titre = htmlspecialchars($_REQUEST['titre'] ?? "");
+        $rating = htmlspecialchars($_REQUEST['rating'] ?? "");
+        $review = htmlspecialchars($_REQUEST['textRevue'] ?? "");
 
         $addMicroReview->bindParam($idMicro, $userId, $titre, $rating, $review);
         $addMicroReview->execute();
+
+        $_REQUEST['action'] = '';
     }
 }
 ?>
