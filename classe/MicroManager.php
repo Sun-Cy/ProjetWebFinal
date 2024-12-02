@@ -52,10 +52,11 @@ CONST GET_MICRO_BY_ID="SELECT mi.idMicro, m.marque,mi.modele,g.garantie,i.interf
         if(empty($marqueResult)){
             $query = $this->_db->prepare(self::ADD_MARQUE_IF_NOT_EXIST);
             $query->bindParam(':marque',$marque);
+            $query->execute();
         }
-        else{
-
-        }
+       
+        $query = $this->_db->prepare(self::ADD_MICRO);
+        
 
 
 

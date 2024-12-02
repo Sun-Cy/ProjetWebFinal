@@ -147,3 +147,7 @@ nav a:hover {
         width: calc(100% - 40px);
     }
 }
+
+.boutonRetour{
+    float: right;
+}
