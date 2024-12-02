@@ -1,4 +1,4 @@
-<?php
+<?php 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 } 
@@ -15,16 +15,28 @@ $bdd = PDOFactory::getMySQLConnection();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>Réservation de voiture</title>
+    <title>Microphone</title>
     <script src="js/script.js" defer></script>
 </head>
 
-<body>
+<body onload="loadInfo()">
 
-    <main>
-
+    <header>
         <nav class="main-menu">
-            <ul>
-            <li><a href="index.php">Accueil</a></li>
-            </ul>
+            <div class="menu-container">
+                <a href="index.php" class="site-icon">
+                    <img src="img/micIcon.png" alt="Site Icon" class="icon">
+                </a>
+                <ul class="menu-items">
+                    <li><a href="listeMicro.php">Microphones</a></li>
+                    <li><a href="ajoutMicro.php">Ajout</a></li>
+                    <li><a href="review.php">Revue</a></li>
+                </ul>
+                <a href="panier.php" class="site-icon">
+                    <img src="img/shoppingCart.png" alt="Panier Icon" class="icon">
+                </a>
+            </div>
         </nav>
+    </header>
+
+    <main></main>

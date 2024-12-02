@@ -13,12 +13,6 @@ if(isset($micro)){
 <h2> <?= $micro->get_marque() . " " . $micro->get_modele()?> </h2>
 <?php 
 
-
-
-
-
-
-
 }
 else
 {
