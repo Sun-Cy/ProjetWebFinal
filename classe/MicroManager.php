@@ -4,11 +4,14 @@
 class MicroManager{
     private $_db;
 CONST GET_MICROS="SELECT mi.idMicro, m.marque,mi.modele,g.garantie,i.interface,mi.image,mi.prix,mi.lienAchat,c.cartouche,mi.frequenceMin,mi.frequenceMax,mi.maxSPL,mi.ratedImpedance,mi.RGB FROM microphone mi JOIN marque m ON mi.idMarque = m.idMarque JOIN garantie g ON mi.idGarantie = g.idGarantie JOIN interface i ON mi.idInterface = i.idInterface JOIN cartouche c ON mi.idCartouche = c.idCartouche ORDER BY idMicro ASC";
-CONST ADD_MICRO="INSERT INTO microphone (idMarque,Modele,idGarantie,idInterface,image,prix,lienAchat,idCartouche,FrequenceMin,FrequenceMax,maxSPL,ratedImpedance,RGB)
-VALUES ((SELECT idMarque FROM marque WHERE marque = 'Elgato'),'Wave:2',(SELECT idGarantie FROM garantie WHERE garantie = '1 an'), (SELECT idInterface FROM interface WHERE interface = 'USB-C'),
- 'lol.123',69,'ok',(SELECT idCartouche FROM cartouche WHERE cartouche = 'Condenser'),1,10069,169,69,TRUE);";
+CONST ADD_MICRO="INSERT INTO microphone (idMarque,modele,idGarantie,idInterface,image,prix,lienAchat,idCartouche,frequenceMin,frequenceMax,maxSPL,ratedImpedance,RGB)
+VALUES ((SELECT idMarque FROM marque WHERE marque = :marque),':modele',(SELECT idGarantie FROM garantie WHERE garantie = :garantie), (SELECT idInterface FROM interface WHERE interface = :interface),
+ ':img',:prix,':lien',(SELECT idCartouche FROM cartouche WHERE cartouche = :cartouche),:frequMin,:frequMax,:maxSLP,:ratedImp,:rgb);";
  CONST GET_MARQUE="SELECT marque FROM marque WHERE marque = :marque";
  CONST ADD_MARQUE_IF_NOT_EXIST="INSERT INTO marque (marque) VALUES (':marque')";
+ CONST GET_GARANTIE="SELECT idGarantie AS id, garantie FROM garantie";
+ CONST GET_INTERFACE="SELECT idInterface AS id, interface FROM interface";
+ CONST GET_CARTOUCHE="SELECT idCartouche AS id, cartouche FROM cartouche";
 
 CONST GET_MICRO_BY_ID="SELECT mi.idMicro, m.marque,mi.modele,g.garantie,i.interface,mi.image,mi.prix,mi.lienAchat,c.cartouche,mi.frequenceMin,mi.frequenceMax,mi.maxSPL,mi.ratedImpedance,mi.RGB FROM microphone mi JOIN marque m ON mi.idMarque = m.idMarque JOIN garantie g ON mi.idGarantie = g.idGarantie JOIN interface i ON mi.idInterface = i.idInterface JOIN cartouche c ON mi.idCartouche = c.idCartouche WHERE idMicro = :idMicro;";
 
@@ -42,24 +45,63 @@ CONST GET_MICRO_BY_ID="SELECT mi.idMicro, m.marque,mi.modele,g.garantie,i.interf
         
         return new Micro($dbResult);
       }   
-      public function insertMicro($marque){
+      public function insertMicro($marque,$modele,$garantie,$interface,$img,$prix,$lien,$cartouche,$frequMin,$frequMax,$maxSPL,$ratedImp,$RGB){
 
-        $query = $this->_db->prepare(self::GET_MARQUE);
-        $query->bindParam(':marque',$marque,PDO::PARAM_STR);
-        $query->execute();
-        $marqueResult = $query->fetch();
+        $dbResult = $this->_db->query(self::GET_MARQUE)->fetchAll();
 
-        if(empty($marqueResult)){
+        if(empty($dbResult)){
             $query = $this->_db->prepare(self::ADD_MARQUE_IF_NOT_EXIST);
-            $query->bindParam(':marque',$marque);
-            $query->execute();
+            $query->execute(array("marque" => $marque));
         }
        
         $query = $this->_db->prepare(self::ADD_MICRO);
-        
+        $query->execute(
+        array("marque" => $marque,
+                        "modele" => $modele,
+                        "garantie" => $garantie,
+                        "interface" => $interface,
+                        "img" => $img,
+                        "prix" => $prix,
+                        "lien" => $lien,
+                        "cartouche" => $cartouche,
+                        "FrequMin" => $frequMin,
+                        "FrequMax" => $frequMax,
+                        "maxSPL" => $maxSPL,
+                        "ratedImp" => $ratedImp,
+                        "rgb" => $RGB,
+                    ));
+      }
+    public function get_garantie(){
 
+        $garantieArr = Array();
 
+        $dbResult = $this->_db->query(self::GET_GARANTIE)->fetchAll();
 
+        foreach($dbResult as $row){
+            array_push($garantieArr,$row);
+        }
+        return $garantieArr;
+    }   
+    public function get_interface(){
 
-      }   
+        $interfaceArr = Array();
+
+        $dbResult = $this->_db->query(self::GET_INTERFACE)->fetchAll();
+
+        foreach($dbResult as $row){
+            array_push($interfaceArr,$row);
+        }
+        return $interfaceArr;
+    }  
+    public function get_cartouche(){
+
+        $cartoucheArr = Array();
+
+        $dbResult = $this->_db->query(self::GET_CARTOUCHE)->fetchAll();
+
+        foreach($dbResult as $row){
+            array_push($cartoucheArr,$row);
+        }
+        return $cartoucheArr;
+    }  
 };
