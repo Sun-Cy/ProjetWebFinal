@@ -5,17 +5,41 @@
 //document.getElementById("theme-sombre").addEventListener("click", changethemeSombre);
 
 //ajout listener pour les button droite eet gauche du formulaire
-buttonDroit = document.getElementsByClassName("fa-chevron-circle-right");
+let buttonDroit = document.getElementsByClassName("fa-chevron-circle-right");
 
 for (let i=0; i < buttonDroit.length; i++) {
     buttonDroit[i].addEventListener("click", moveRight);
 }
 
-buttonGauche = document.getElementsByClassName("fa-chevron-circle-left");
+let buttonGauche = document.getElementsByClassName("fa-chevron-circle-left");
 
-for (let i=0, l = buttonGauche.length; i < l; i++) {
+for (let i=0; i < buttonGauche.length; i++) {
     buttonGauche[i].addEventListener("click", moveLeft);
 }
+function moveRight() {
+    let fieldset = document.getElementsByTagName("fieldset");
+
+    for(let i = 0; i < fieldset.length;i++){
+        if(fieldset[i].className != "hide"){
+            fieldset[i].classList.add("hide");
+            i++;
+            fieldset[i].classList.remove("hide");
+            return;
+        }
+    }
+  }
+function moveLeft() {
+    let fieldset = document.getElementsByTagName("fieldset");
+
+    for(let i = 0; i < fieldset.length;i++){
+        if(fieldset[i].className != "hide"){
+            fieldset[i].classList.add("hide");
+            i--;
+            fieldset[i].classList.remove("hide");
+            return;
+        }
+    }
+  }
 
 //ajouter un listener pour la liste d'option pour les poste
 //document.getElementById("poste").addEventListener("change", changeDescriptionPoste)
@@ -91,35 +115,6 @@ function setCookie(cname, cvalue, exdays) {
       }
     }
     return "";
-  }
-
-
-
-
-  function moveRight() {
-    let fieldset = document.getElementsByTagName("fieldset");
-
-    for(let i = 0; i < fieldset.length;i++){
-        if(fieldset[i].className != "hide"){
-            fieldset[i].classList.add("hide");
-            i++;
-            fieldset[i].classList.remove("hide");
-            return;
-        }
-    }
-  }
-
-  function moveLeft() {
-    let fieldset = document.getElementsByTagName("fieldset");
-
-    for(let i = 0; i < fieldset.length;i++){
-        if(fieldset[i].className != "hide"){
-            fieldset[i].classList.add("hide");
-            i--;
-            fieldset[i].classList.remove("hide");
-            return;
-        }
-    }
   }
 
   function changeDescriptionPoste(){

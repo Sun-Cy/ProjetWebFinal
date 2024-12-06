@@ -34,7 +34,7 @@ body {
 }
 
 article, form {
-    background-color: var(--noir);
+   
     margin: auto;
     max-width: 980px;
     min-height: 95vh;
@@ -125,6 +125,81 @@ nav a:hover {
     display: none;
 }
 
+.grid-2col {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-row-gap: 5px;
+}
+
+
+.fieldSets{
+    display: flex;
+    justify-content: center;
+}
+.frm-carrière .row{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.frm-carrière fieldset {
+    color: black;
+    width:75%;
+    border: none;
+}
+.fa-chevron-circle-left{
+    justify-content: center;
+}
+.fa-chevron-circle-right{
+    justify-content: center;
+}
+.frm-carrière label {
+    font-weight: bold;
+    text-align: right;
+    grid-column-start: 1;
+}
+.frm-carrière input{
+    text-align: left;
+    grid-column-start: 2;
+}
+.frm-carrière i {
+    cursor: pointer;
+}
+
+.frm-carrière i.fa-5 {
+    margin : 0 30px;
+    font-size: 3em;
+}
+span.vide {
+    width:42px;
+}
+.microImg{
+    margin-right: 5%;
+}
+.micro img{
+    max-width: 500px;
+    max-height: 500px;
+    height: 100%;
+    width: 100%;
+    border-radius: 20%;
+}
+.micro label{
+    font-weight: bold;
+    text-align: right;
+
+}
+.text{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+.micro{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+
 /* Mobile Styles */
 @media (max-width: 980px) {
     .menu-container {
@@ -169,8 +244,24 @@ nav a:hover {
         margin: 20px;
         width: calc(100% - 40px);
     }
-}
 
-.boutonRetour{
-    float: right;
+    .microImg{
+        margin-right: 5%;
+    }
+    .micro img{
+        height: 100%;
+        width: 100%;
+        border-radius: 20%;
+    }
+    .micro label{
+        font-weight: bold;
+    }
+    .text{
+        margin-top: 25px;
+    }
+    .micro{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+    }
 }
