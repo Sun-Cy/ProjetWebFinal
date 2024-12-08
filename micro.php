@@ -3,10 +3,8 @@ include_once("inc/header.php");
 
 $mm = new MicroManager($bdd);
 
-$micro = $mm->getMicroById($_REQUEST['id']);
-
-
-if(isset($micro)){
+if(isset($_REQUEST['id'])){
+    $micro = $mm->getMicroById($_REQUEST['id']);
 ?>
 <h2 class="center"> <?= $micro->get_marque() . " " . $micro->get_modele()?> </h2>
 <div class="center micro">
@@ -22,16 +20,16 @@ if(isset($micro)){
 <div><label for="">Cartouche : </label><?= $micro->get_cartouche() ?><br></div>
 <div><label for="">Fréquence Min (dB) : </label><?= $micro->get_frequenceMin() ?><br></div>
 <div><label for="">Fréquence Max (dB) : </label><?= $micro->get_frequenceMax() ?><br></div>
-<div><label for="">Max SPL (Sound Pressure Level en dB): : </label><?= $micro->get_maxSPL() ?><br></div>
-<div><label for="">Rated Impedance : </label><?= $micro->get_ratedImpedance() ?><br></div>
-<div><label for="">RGB : </label><?php if($micro->get_RGB() == 0){echo 'Non';}else{echo 'Non';} ?><br><br></div>
+<div><label for="">Max SPL (Sound Pressure Level en dB): </label><?php $maxSPL = $micro->get_maxSPL(); if(isset($maxSPL)){ echo $micro->get_maxSPL();} else{ echo 'Nul';} ?><br></div>
+<div><label for="">Rated Impedance : </label><?php $ratedImp =  $micro->get_ratedImpedance(); if(isset($ratedImp)){ echo $micro->get_ratedImpedance();} else{ echo 'Nul';} ?><br></div>
+<div><label for="">RGB : </label><?php if($micro->get_RGB() == true){echo 'Oui';}else{echo 'Non';} ?><br><br></div>
 <a href="listeMicro.php" class="boutonRetour">Retour à la liste des micros</a>
 </div>
 <?php 
 }
 else
 {
-    echo "Ce micro n'existe pas...";
+    echo '<p class"center">Aucun micro trouvé...</p>';
     echo '<a href="listeMicro.php" class="boutonRetour">Retour à la liste des micros</a>';
 }
 ?>
