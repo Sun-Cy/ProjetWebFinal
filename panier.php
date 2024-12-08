@@ -30,7 +30,7 @@ $idClient = isset($_SESSION['client']) ? unserialize($_SESSION['client'])->getId
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Redirect to commande.php for further processing
-    header("Location: commande.php");
+    header("Location: passerCommande.php");
     exit();
 }
 

@@ -1,4 +1,6 @@
 <?php
+
+
 include_once("./inc/autoLoader.php");
 require_once("./classe/PDOFactory.php");
 require_once("./inc/header.php");
@@ -8,6 +10,7 @@ $clientManager = new ClientManager($conn);
 
 $idClient = isset($_SESSION['client']) ? unserialize($_SESSION['client'])->getId() : null;
 $client = isset($_SESSION['client']) ? unserialize($_SESSION['client']) : null;
+$commande = isset($_SESSION['commande']) ? unserialize($_SESSION['commande']) : null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $prenom = $_POST['prenom'] ?? '';
@@ -19,10 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $creditCardNumber = $_POST['creditCardNumber'] ?? '';
     $creditCardExpiration = $_POST['creditCardExpiration'] ?? '';
     $creditCardCVV = $_POST['creditCardCVV'] ?? '';
-    $micros = explode(',', $_POST['micros'] ?? '');
-    $quantite = $_POST['quantite'] ?? 1;
-    $prixTotal = $_POST['prixTotal'] ?? 0.0;
-    $dateCommande = date('Y-m-d H:i:s');
 
     if ($idClient === null) {
         // Create a new guest client
@@ -34,11 +33,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Create a new credit card object
     $creditCard = new CreditCard(null, $creditCardName, $creditCardNumber, $creditCardExpiration, $creditCardCVV, $idClient);
 
-    // Create a new order
-    $newCommande = new Commande(null, $idClient, $micros, $dateCommande, $quantite, $prixTotal);
-    $clientManager->addCommande($newCommande);
+    // Update the order with the client ID
+    $commande->setIdClient($idClient);
+    $clientManager->addCommande($commande);
 
     echo "Order placed successfully!";
+    unset($_SESSION['commande']);
 }
 
 $conn = null;
@@ -53,23 +53,23 @@ $conn = null;
 </head>
 <body>
     <h2>Commande</h2>
-    <form action="commande.php" method="post">
+    <form action="passerCommande.php" method="post">
         <fieldset>
             <legend>Informations personnelles</legend>
             <label for="prenom">Prénom: </label>
-            <input type="text" name="prenom" id="prenom" value="<?php echo $client ? $client->getPrenom() : ''; ?>" required><br><br>
+            <input type="text" name="prenom" id="prenom" value="<?php echo $client ? $client->getPrenom() : ''; ?>" <?php echo $client ? 'readonly' : 'required'; ?>><br><br>
 
             <label for="nom">Nom: </label>
-            <input type="text" name="nom" id="nom" value="<?php echo $client ? $client->getNom() : ''; ?>" required><br><br>
+            <input type="text" name="nom" id="nom" value="<?php echo $client ? $client->getNom() : ''; ?>" <?php echo $client ? 'readonly' : 'required'; ?>><br><br>
 
             <label for="email">Email: </label>
-            <input type="email" name="email" id="email" value="<?php echo $client ? $client->getEmail() : ''; ?>" required><br><br>
+            <input type="email" name="email" id="email" value="<?php echo $client ? $client->getEmail() : ''; ?>" <?php echo $client ? 'readonly' : 'required'; ?>><br><br>
 
             <label for="adresse">Adresse: </label>
-            <input type="text" name="adresse" id="adresse" value="<?php echo $client ? $client->getAdresse() : ''; ?>" required><br><br>
+            <input type="text" name="adresse" id="adresse" value="<?php echo $client ? $client->getAdresse() : ''; ?>" <?php echo $client ? 'readonly' : 'required'; ?>><br><br>
 
             <label for="telephone">Téléphone: </label>
-            <input type="text" name="telephone" id="telephone" value="<?php echo $client ? $client->getTéléphone() : ''; ?>" required><br><br>
+            <input type="text" name="telephone" id="telephone" value="<?php echo $client ? $client->getTéléphone() : ''; ?>" <?php echo $client ? 'readonly' : 'required'; ?>><br><br>
         </fieldset>
 
         <fieldset>
@@ -87,9 +87,9 @@ $conn = null;
             <input type="text" name="creditCardCVV" id="creditCardCVV" required><br><br>
         </fieldset>
 
-        <input type="hidden" name="micros" value="<?php echo $_POST['micros'] ?? ''; ?>">
-        <input type="hidden" name="quantite" value="<?php echo $_POST['quantite'] ?? ''; ?>">
-        <input type="hidden" name="prixTotal" value="<?php echo $_POST['prixTotal'] ?? ''; ?>">
+        <input type="hidden" name="micros" value="<?php echo implode(',', $commande->getMicros()); ?>">
+        <input type="hidden" name="quantite" value="<?php echo $commande->getQuantite(); ?>">
+        <input type="hidden" name="prixTotal" value="<?php echo $commande->getPrixTotal(); ?>">
 
         <button type="submit">Passer la commande</button>
     </form>

@@ -132,3 +132,66 @@ function setCookie(cname, cvalue, exdays) {
 
     document.getElementById(selectElement.value).classList.remove("hide");
   }
+
+  //simon
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const form = document.querySelector("form");
+    
+    form.addEventListener("submit", function(event) {
+        // Validate credit card number (simple Luhn algorithm check)
+        const creditCardNumber = document.getElementById("creditCardNumber").value;
+        if (!isValidCreditCardNumber(creditCardNumber)) {
+            alert("Numéro de carte invalide.");
+            event.preventDefault();
+            return;
+        }
+
+        // Validate credit card expiration date (MM/YY format)
+        const creditCardExpiration = document.getElementById("creditCardExpiration").value;
+        if (!isValidExpirationDate(creditCardExpiration)) {
+            alert("Date d'expiration invalide. Utilisez le format MM/YY.");
+            event.preventDefault();
+            return;
+        }
+
+        // Validate CVV (3 or 4 digits)
+        const creditCardCVV = document.getElementById("creditCardCVV").value;
+        if (!/^\d{3,4}$/.test(creditCardCVV)) {
+            alert("CVV invalide. Entrez 3 ou 4 chiffres.");
+            event.preventDefault();
+            return;
+        }
+    });
+
+    function isValidCreditCardNumber(value) {
+        // Luhn algorithm
+        let sum = 0;
+        let shouldDouble = false;
+        for (let i = value.length - 1; i >= 0; i--) {
+            let digit = parseInt(value.charAt(i));
+            if (shouldDouble) {
+                digit *= 2;
+                if (digit > 9) {
+                    digit -= 9;
+                }
+            }
+            sum += digit;
+            shouldDouble = !shouldDouble;
+        }
+        return sum % 10 === 0;
+    }
+
+    function isValidExpirationDate(value) {
+        const match = value.match(/^(0[1-9]|1[0-2])\/?([0-9]{2})$/);
+        if (!match) {
+            return false;
+        }
+        const expMonth = parseInt(match[1], 10);
+        const expYear = parseInt(match[2], 10) + 2000;
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth() + 1;
+        const currentYear = currentDate.getFullYear();
+        return expYear > currentYear || (expYear === currentYear && expMonth >= currentMonth);
+    }
+});
