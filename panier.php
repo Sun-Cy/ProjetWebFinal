@@ -43,14 +43,7 @@ $totalWithTaxes = $prixTotal + $gst + $qst;
 $conn = null;
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panier</title>
-</head>
-<body>
+<div class="panier"s>
     <h2>Panier</h2>
     <ul>
         <?php foreach ($commande->getMicros() as $microId): ?>
@@ -65,14 +58,15 @@ $conn = null;
             </li>
         <?php endforeach; ?>
     </ul>
-    <p>Quantité: <?php echo $commande->getQuantite(); ?></p>
-    <p>Prix Total: <?php echo number_format($prixTotal, 2); ?> $</p>
-    <p>GST (5%): <?php echo number_format($gst, 2); ?> $</p>
-    <p>QST (9.975%): <?php echo number_format($qst, 2); ?> $</p>
-    <p>Total avec taxes: <?php echo number_format($totalWithTaxes, 2); ?> $</p>
+    <div class="details">
+        <p>Quantité: <?php echo $commande->getQuantite(); ?></p>
+        <p>Prix Total: <?php echo number_format($prixTotal, 2); ?> $</p>
+        <p>GST (5%): <?php echo number_format($gst, 2); ?> $</p>
+        <p>QST (9.975%): <?php echo number_format($qst, 2); ?> $</p>
+        <p>Total avec taxes: <?php echo number_format($totalWithTaxes, 2); ?> $</p>
+    </div>
 
     <form action="panier.php" method="post">
         <button type="submit">Passer la commande</button>
     </form>
-</body>
-</html>
+</div>

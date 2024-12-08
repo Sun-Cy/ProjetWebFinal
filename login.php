@@ -13,5 +13,5 @@ require_once("./inc/header.php");
     <input type="hidden" name="action" value="connexion">
 
     <button type="submit">Se connecter</button>
-    <p>Pas encore inscrit? <a href="register.php">Inscrivez-vous</a></p>
+    <p>Pas encore inscrit? <a href="inscription.php">Inscrivez-vous</a></p>
 </form>

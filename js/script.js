@@ -189,6 +189,39 @@ function setCookie(cname, cvalue, exdays) {
         const currentYear = currentDate.getFullYear();
         return expYear > currentYear || (expYear === currentYear && expMonth >= currentMonth);
     }
+
+    // Inscription form navigation
+ const fieldsets = document.querySelectorAll("form.inscription fieldset");
+ const prevArrow = document.getElementById("prev-arrow");
+ const nextArrow = document.getElementById("next-arrow");
+ const submitButton = document.querySelector("form.inscription button[type='submit']");
+ let currentFieldset = 0;
+
+ function updateFieldsets() {
+     fieldsets.forEach((fieldset, index) => {
+         fieldset.classList.toggle("active", index === currentFieldset);
+     });
+     prevArrow.classList.toggle("hide", currentFieldset === 0);
+     nextArrow.classList.toggle("hide", currentFieldset === fieldsets.length - 1);
+     submitButton.classList.toggle("hide", currentFieldset !== fieldsets.length - 1);
+ }
+
+ prevArrow.addEventListener("click", function() {
+     if (currentFieldset > 0) {
+         currentFieldset--;
+         updateFieldsets();
+     }
+ });
+
+ nextArrow.addEventListener("click", function() {
+     if (currentFieldset < fieldsets.length - 1) {
+         currentFieldset++;
+         updateFieldsets();
+     }
+ });
+
+ updateFieldsets();
+
 });
 
 
@@ -212,3 +245,6 @@ function changerImage(){
 
     }
  }
+
+
+ 

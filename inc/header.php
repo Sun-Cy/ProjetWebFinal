@@ -2,8 +2,10 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 } 
-include_once("classe/autoloader.php");
+include_once("inc/autoloader.php");
 include_once("classe/PDOFactory.php");
+
+$bdd = PDOFactory::getMySQLConnection();
 
 if (isset($_REQUEST['action']) && $_REQUEST['action'] == "connexion"){
     $_SESSION['username'] = $_REQUEST['username']; 
@@ -42,6 +44,10 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == "connexion"){
                 </ul>
                 <a href="panier.php" class="site-icon">
                     <img src="img/shoppingCart.png" alt="Panier Icon" class="icon">
+                </a>
+
+                <a href="login.php" class="site-icon">
+                   Ouvrir une session
                 </a>
             </div>
         </nav>
