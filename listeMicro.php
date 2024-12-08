@@ -1,15 +1,16 @@
 <?php
 include_once("inc/header.php"); 
-$mv = new MicroManager($bdd);
-$micros = array();
-$micros = $mv->get_micro();
-$unMicro = $mv->getMicroById(1);
 
-echo $unMicro->get_cartouche();
+$mm = new MicroManager($bdd);
 
-foreach($micros as $micro){
-echo $micro->get_cartouche() . '<br>';
-}
-echo "YO WTF";
+$micros = $mm->get_micros();
+
 
 ?>
+<div class="center listeMicro">
+<?php
+foreach($micros as $micro){
+    echo '<a href="micro.php?id=' . $micro->get_idMicro() . '">' . $micro->get_marque() . " " . $micro->get_modele() . '</a>' . '<br>';
+}
+?>
+</div>

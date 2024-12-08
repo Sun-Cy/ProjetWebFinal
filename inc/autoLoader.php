@@ -1,13 +1,7 @@
 <?php
+function loadClass($className) {
+    require_once './classe/' . $className . '.php';
+ }
 
-spl_autoload_register(function ($class_name) {
-    
-    $file = './classe/' . strtolower($class_name) . '.php';
-    
-   
-    if (file_exists($file)) {
-        require_once $file;
-    }
-});
-
-?>
+ spl_autoload_register('loadClass');
+ ?>

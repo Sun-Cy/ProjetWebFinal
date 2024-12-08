@@ -1,24 +1,48 @@
 /* Lab 7 */
 
 //Ajout des listener pour le thème
-document.getElementById("theme-std").addEventListener("click", changethemeStd);
-document.getElementById("theme-sombre").addEventListener("click", changethemeSombre);
+//document.getElementById("theme-std").addEventListener("click", changethemeStd);
+//document.getElementById("theme-sombre").addEventListener("click", changethemeSombre);
 
 //ajout listener pour les button droite eet gauche du formulaire
-buttonDroit = document.getElementsByClassName("fa-chevron-circle-right");
+let buttonDroit = document.getElementsByClassName("fa-chevron-circle-right");
 
 for (let i=0; i < buttonDroit.length; i++) {
     buttonDroit[i].addEventListener("click", moveRight);
 }
 
-buttonGauche = document.getElementsByClassName("fa-chevron-circle-left");
+let buttonGauche = document.getElementsByClassName("fa-chevron-circle-left");
 
-for (let i=0, l = buttonGauche.length; i < l; i++) {
+for (let i=0; i < buttonGauche.length; i++) {
     buttonGauche[i].addEventListener("click", moveLeft);
 }
+function moveRight() {
+    let fieldset = document.getElementsByTagName("fieldset");
+
+    for(let i = 0; i < fieldset.length;i++){
+        if(fieldset[i].className != "hide"){
+            fieldset[i].classList.add("hide");
+            i++;
+            fieldset[i].classList.remove("hide");
+            return;
+        }
+    }
+  }
+function moveLeft() {
+    let fieldset = document.getElementsByTagName("fieldset");
+
+    for(let i = 0; i < fieldset.length;i++){
+        if(fieldset[i].className != "hide"){
+            fieldset[i].classList.add("hide");
+            i--;
+            fieldset[i].classList.remove("hide");
+            return;
+        }
+    }
+  }
 
 //ajouter un listener pour la liste d'option pour les poste
-document.getElementById("poste").addEventListener("change", changeDescriptionPoste)
+//document.getElementById("poste").addEventListener("change", changeDescriptionPoste)
 
 //Ajout des listener pour les boutons annuler une réservation
 elems = document.getElementsByClassName("btn-annuler");
@@ -91,35 +115,6 @@ function setCookie(cname, cvalue, exdays) {
       }
     }
     return "";
-  }
-
-
-
-
-  function moveRight() {
-    let fieldset = document.getElementsByTagName("fieldset");
-
-    for(let i = 0; i < fieldset.length;i++){
-        if(fieldset[i].className != "hide"){
-            fieldset[i].classList.add("hide");
-            i++;
-            fieldset[i].classList.remove("hide");
-            return;
-        }
-    }
-  }
-
-  function moveLeft() {
-    let fieldset = document.getElementsByTagName("fieldset");
-
-    for(let i = 0; i < fieldset.length;i++){
-        if(fieldset[i].className != "hide"){
-            fieldset[i].classList.add("hide");
-            i--;
-            fieldset[i].classList.remove("hide");
-            return;
-        }
-    }
   }
 
   function changeDescriptionPoste(){
@@ -195,3 +190,25 @@ function setCookie(cname, cvalue, exdays) {
         return expYear > currentYear || (expYear === currentYear && expMonth >= currentMonth);
     }
 });
+
+
+let images = [];
+images = document.getElementsByClassName("imgCarouselle");
+for(let i = 1; i < images.length;i++){
+    images[i].classList.add("hide");
+}
+
+setInterval(changerImage,7000);
+
+function changerImage(){
+
+    for(let i = 0; i < images.length; i++){
+     
+        if(!images[i].classList.contains("hide")){
+            images[i].classList.add("hide");
+            images[(i+1) % images.length].classList.remove("hide");
+            break;
+        }
+
+    }
+ }
