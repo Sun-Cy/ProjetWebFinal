@@ -15,3 +15,4 @@ require_once("./inc/header.php");
     <button type="submit">Se connecter</button>
     <p>Pas encore inscrit? <a href="inscription.php">Inscrivez-vous</a></p>
 </form>
+</main>

@@ -42,37 +42,4 @@ require_once("./inc/header.php");
 </form>
 <p>Déjà inscrit? <a href="login.php">Connectez-vous ici</a></p>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const fieldsets = document.querySelectorAll("form.inscription fieldset");
-    const prevArrow = document.getElementById("prev-arrow");
-    const nextArrow = document.getElementById("next-arrow");
-    const submitButton = document.querySelector("form.inscription button[type='submit']");
-    let currentFieldset = 0;
-
-    function updateFieldsets() {
-        fieldsets.forEach((fieldset, index) => {
-            fieldset.classList.toggle("active", index === currentFieldset);
-        });
-        prevArrow.classList.toggle("hide", currentFieldset === 0);
-        nextArrow.classList.toggle("hide", currentFieldset === fieldsets.length - 1);
-        submitButton.classList.toggle("hide", currentFieldset !== fieldsets.length - 1);
-    }
-
-    prevArrow.addEventListener("click", function() {
-        if (currentFieldset > 0) {
-            currentFieldset--;
-            updateFieldsets();
-        }
-    });
-
-    nextArrow.addEventListener("click", function() {
-        if (currentFieldset < fieldsets.length - 1) {
-            currentFieldset++;
-            updateFieldsets();
-        }
-    });
-
-    updateFieldsets();
-});
-</script>
+</main>

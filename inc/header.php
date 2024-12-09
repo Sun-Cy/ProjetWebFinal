@@ -53,4 +53,4 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == "connexion"){
         </nav>
     </header>
 
-    <main></main>
+    <main>
