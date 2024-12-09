@@ -1,25 +1,24 @@
-<?php 
+<?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
-} 
+}
 include_once("inc/autoloader.php");
 include_once("classe/PDOFactory.php");
 
 $bdd = PDOFactory::getMySQLConnection();
 
-if (isset($_REQUEST['action']) && $_REQUEST['action'] == "connexion"){
-    $_SESSION['username'] = $_REQUEST['username']; 
-    
-} elseif (isset($_REQUEST['action']) && $_REQUEST['action'] == "logout"){ 
+if (isset($_REQUEST['action']) && $_REQUEST['action'] == "connexion") {
+    $_SESSION['username'] = $_REQUEST['username'];
+} elseif (isset($_REQUEST['action']) && $_REQUEST['action'] == "logout") {
 
     $_SESSION = array();
-    session_destroy(); 
+    session_destroy();
 }
 ?>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!DOCTYPE html>
-<html lang="fr">     
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -41,17 +40,18 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == "connexion"){
                     <li><a href="listeMicro.php">Microphones</a></li>
                     <li><a href="ajoutMicro.php">Ajout</a></li>
                     <li><a href="review.php">Revue</a></li>
-                    <li><a href="login.php" class="site-icon">Ouvrir une session</a></li>
+                    <li><?php if (isset($_SESSION['client'])): ?>
+                            <a href="index.php?action=logout" class="site-icon">Se déconnecter</a>
+                        <?php else: ?>
+                            <a href="login.php" class="site-icon">Ouvrir une session</a>
+                        <?php endif; ?>
+                    </li>
                 </ul>
                 <a href="panier.php" class="site-icon">
                     <img src="img/shoppingCart.png" alt="Panier Icon" class="icon">
                 </a>
 
-                <?php if (isset($_SESSION['client'])): ?>
-                    <a href="index.php?action=logout" class="site-icon">Se déconnecter</a>
-                <?php else: ?>
-                    <a href="login.php" class="site-icon">Ouvrir une session</a>
-                <?php endif; ?>
+
             </div>
         </nav>
     </header>

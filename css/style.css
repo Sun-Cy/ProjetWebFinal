@@ -446,6 +446,23 @@ form.inscription fieldset.active {
     background-color: var(--bleufonce);
 }
 
+.empty-cart {
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.empty-cart-img {
+    width: 150px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.empty-cart p {
+    font-size: 18px;
+    color: #333;
+}
+
 .container{
     background-color: white;
     border-radius: 20px;
