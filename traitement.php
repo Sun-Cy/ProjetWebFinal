@@ -1,17 +1,24 @@
-<?php
-session_start();
 
-include_once("./inc/autoLoader.php");
-require_once("./classe/PDOFactory.php");
+<?php
+
+
+
 require_once("./inc/header.php");
 
 $conn = PDOFactory::getMySQLConnection();
 
-$clientManager = new ClientManager($conn);
+$clientManager = new ClientManager($bdd);
 
+$messageClass = '';
+
+?> 
+<div class="container">
+    
+
+
+<?php
 if (isset($_POST['action'])) {
     if ($_POST['action'] === 'register') {
-        // Register a new client
         $prenom = $_POST['prenom'] ?? '';
         $nom = $_POST['nom'] ?? '';
         $username = $_POST['username'] ?? '';
@@ -22,9 +29,13 @@ if (isset($_POST['action'])) {
 
         $newClient = new Client($prenom, $nom, $email, $password, $adresse, $telephone, null);
         $clientManager->addClient($newClient);
-        echo "Registration successful! You can now log in.";
+        $messageClass = 'success';
+        ?>
+        <div class="message success">
+            <p>Inscription réussie ! Vous pouvez maintenant vous connecter.</p>
+        </div>
+        <?php
     } elseif ($_POST['action'] === 'connexion') {
-        // Attempt to login
         $email = $_POST['username'] ?? '';
         $password = $_POST['mdp'] ?? '';
 
@@ -32,12 +43,26 @@ if (isset($_POST['action'])) {
 
         if ($client) {
             $_SESSION['client'] = serialize($client);
-            echo "Authentification réussie ! Bon magasinage, " . $client->getNomComplet() . ".";
+            $messageClass = 'success';
+            ?>
+            <div class="message success">
+                <p>Authentification réussie ! Bon magasinage, <?php echo $client->getNomComplet(); ?>.</p>
+                <a href="listeMicro.php">Commencer le magasinage</a>
+            </div>
+            <?php
         } else {
-            echo "Authentification ratée. Veuillez entrez des informations valides..";
+            $messageClass = 'error';
+            ?>
+            <div class="message error">
+                Authentification ratée. Veuillez entrer des informations valides.
+            </div>
+            <?php
         }
     }
 }
 
 $conn = null;
 ?>
+
+</div>
+</main>

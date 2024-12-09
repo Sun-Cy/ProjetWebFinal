@@ -445,3 +445,30 @@ form.inscription fieldset.active {
 .panier form button:hover {
     background-color: var(--bleufonce);
 }
+
+.container{
+    background-color: white;
+    border-radius: 20px;
+    width:30%;
+    margin:auto;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.message {
+    
+    text-align: center;
+    padding: 10px;
+    font-size: 20px;
+    
+}
+.message.success {
+    background-color: var(--success-color);
+    color: black;
+}
+
+.message.error {
+    background-color: var(--error-color);
+    color: black;
+}

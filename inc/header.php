@@ -46,9 +46,11 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == "connexion"){
                     <img src="img/shoppingCart.png" alt="Panier Icon" class="icon">
                 </a>
 
-                <a href="login.php" class="site-icon">
-                   Ouvrir une session
-                </a>
+                <?php if (isset($_SESSION['client'])): ?>
+                    <a href="index.php?action=logout" class="site-icon">Se déconnecter</a>
+                <?php else: ?>
+                    <a href="login.php" class="site-icon">Ouvrir une session</a>
+                <?php endif; ?>
             </div>
         </nav>
     </header>
