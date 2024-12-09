@@ -20,7 +20,7 @@ $bdd = PDOFactory::getMySQLConnection();
     <script src="js/script.js" defer></script>
 </head>
 
-<body">
+<body onload="loadInfo()">
 
     <header>
         <nav class="main-menu">
