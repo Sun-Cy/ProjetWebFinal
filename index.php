@@ -4,6 +4,7 @@
  <br>
  <div class="wrapperImages">
 <?php 
+$bdd = PDOFactory::getMySQLConnection();
 $mm = new MicroManager($bdd);
 $micros = $mm->get_micros();
 

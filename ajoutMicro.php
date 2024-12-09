@@ -1,6 +1,8 @@
 <?php
 include_once("inc/header.php"); 
-    $mm = new MicroManager($bdd);
+
+ $bdd=PDOFactory::getMySQLConnection();   
+$mm = new MicroManager($bdd);
 
 if(isset($_REQUEST['marque'])){ 
     if(isset($_REQUEST['rgb'])){$_REQUEST['rgb'] = true;}else{$_REQUEST['rgb'] = false;}

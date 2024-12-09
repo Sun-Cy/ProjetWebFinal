@@ -1,46 +1,64 @@
 <?php
+session_start();
 
-
-
+include_once("./inc/autoLoader.php");
+require_once("./classe/PDOFactory.php");
 require_once("./inc/header.php");
 
+$conn = PDOFactory::getMySQLConnection();
+$clientManager = new ClientManager($conn);
+$microManager = new MicroManager($conn);
 
-$clientManager = new ClientManager($bdd);
-$microManager = new MicroManager($bdd);
-
+// Generate a fictional Commande if it doesn't exist in the session
 if (!isset($_SESSION['commande'])) {
-    $micros = [1, 2, 3];
+    // Generate fictional data
+    $micros = [1, 2, 3]; // Example microphone IDs
     $quantite = 3;
-    $prixTotal = 299.99;
+    $sousTotal = 299.97; // Example total price
     $dateCommande = date('Y-m-d H:i:s');
 
-    $commande = new Commande(null, null, $micros, $dateCommande, $quantite, $prixTotal);
+    // Create a fictional Commande object
+    $commande = new Commande(null, null, $micros, $dateCommande, $quantite, $sousTotal);
 
+    // Store the Commande object in the session
     $_SESSION['commande'] = serialize($commande);
+    $logMessage = "Commande created and stored in session.";
 } else {
     $commande = unserialize($_SESSION['commande']);
+    $logMessage = "Commande retrieved from session.";
 }
 
 $idClient = isset($_SESSION['client']) ? unserialize($_SESSION['client'])->getId() : null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Redirect to passerCommande.php for further processing
     header("Location: passerCommande.php");
     exit();
 }
 
+// Calculate taxes
 $sousTotal = $commande->getPrixTotal();
+$logMessage .= "\nSous-total: " . var_export($sousTotal, true);
 $tps = $sousTotal * 0.05;
 $tvq = $sousTotal * 0.09975;
 $total = $sousTotal + $tps + $tvq;
+$logMessage .= "\nTPS: " . var_export($tps, true);
+$logMessage .= "\nTVQ: " . var_export($tvq, true);
+$logMessage .= "\nTotal: " . var_export($total, true);
 
 $conn = null;
 ?>
+
+<script>
+    console.log(<?php echo json_encode($logMessage); ?>);
+</script>
 
 <div class="panier">
     <h2>Panier</h2>
     <ul>
         <?php foreach ($commande->getMicros() as $microId): ?>
             <?php
+            // Fetch the Micro details using MicroManager
             $micro = $microManager->getMicroById($microId);
             ?>
             <li>

@@ -2,15 +2,24 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 } 
-include_once("classe/autoloader.php");
+include_once("inc/autoloader.php");
 include_once("classe/PDOFactory.php");
 
 $bdd = PDOFactory::getMySQLConnection();
+
+if (isset($_REQUEST['action']) && $_REQUEST['action'] == "connexion"){
+    $_SESSION['username'] = $_REQUEST['username']; 
+    
+} elseif (isset($_REQUEST['action']) && $_REQUEST['action'] == "logout"){ 
+
+    $_SESSION = array();
+    session_destroy(); 
+}
 ?>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr">     
 
 <head>
     <meta charset="UTF-8">
@@ -36,8 +45,12 @@ $bdd = PDOFactory::getMySQLConnection();
                 <a href="panier.php" class="site-icon">
                     <img src="img/shoppingCart.png" alt="Panier Icon" class="icon">
                 </a>
+
+                <a href="login.php" class="site-icon">
+                   Ouvrir une session
+                </a>
             </div>
         </nav>
     </header>
 
-    <main></main>
+    <main>
