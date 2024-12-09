@@ -99,11 +99,11 @@ function effaceCookie(){
 //Ecrie par Nicolas Beaudoin
 
 
-//fin
+//fin Nicolas Beaudoin
 
 
 
 //Ecrie par Simon Roy
 
 
-//fin
+//fin Simon Roy
