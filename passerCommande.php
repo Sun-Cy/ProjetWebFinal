@@ -1,89 +1,94 @@
 <?php
-session_start();
 
-include_once("./inc/autoLoader.php");
-require_once("./classe/PDOFactory.php");
 require_once("./inc/header.php");
 
 
 $clientManager = new ClientManager($bdd);
-$microManager = new MicroManager($bdd);
-
-// Generate a fictional Commande if it doesn't exist in the session
-if (!isset($_SESSION['commande'])) {
-    // Generate fictional data
-    $micros = [1, 2, 3]; // Example microphone IDs
-    $quantite = 3;
-    $prixTotal = 299.97; // Example total price
-    $dateCommande = date('Y-m-d H:i:s');
-
-    // Create a fictional Commande object
-    $commande = new Commande(null, null, $micros, $dateCommande, $quantite, $prixTotal);
-
-    // Store the Commande object in the session
-    $_SESSION['commande'] = serialize($commande);
-    $logMessage = "Commande created and stored in session.";
-} else {
-    $commande = unserialize($_SESSION['commande']);
-    $logMessage = "Commande retrieved from session.";
-}
-
-// Log the Commande object details
-$logMessage .= "\nCommande details: " . var_export($commande, true);
-
-// Log all objects in the session
-$logMessage .= "\nSession contents: " . var_export($_SESSION, true);
 
 $idClient = isset($_SESSION['client']) ? unserialize($_SESSION['client'])->getId() : null;
+$client = isset($_SESSION['client']) ? unserialize($_SESSION['client']) : null;
+$commande = isset($_SESSION['commande']) ? unserialize($_SESSION['commande']) : null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Redirect to passerCommande.php for further processing
-    header("Location: passerCommande.php");
-    exit();
+    $prenom = $_POST['prenom'] ?? '';
+    $nom = $_POST['nom'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $adresse = $_POST['adresse'] ?? '';
+    $telephone = $_POST['telephone'] ?? '';
+    $creditCardName = $_POST['creditCardName'] ?? '';
+    $creditCardNumber = $_POST['creditCardNumber'] ?? '';
+    $creditCardExpiration = $_POST['creditCardExpiration'] ?? '';
+    $creditCardCVV = $_POST['creditCardCVV'] ?? '';
+
+    if ($idClient === null) {
+        // Create a new guest client
+        $newClient = new Client($prenom, $nom, $email, '', $adresse, $telephone, null);
+        $clientManager->addClient($newClient);
+        $idClient = $conn->lastInsertId();
+    }
+
+    // Create a new credit card object
+    $creditCard = new CreditCard(null, $creditCardName, $creditCardNumber, $creditCardExpiration, $creditCardCVV, $idClient);
+
+    // Update the order with the client ID
+    $commande->setIdClient($idClient);
+    $clientManager->addCommande($commande);
+
+    echo "Order placed successfully!";
+    unset($_SESSION['commande']);
 }
 
-// Calculate taxes
-$sousTotal = $commande->getPrixTotal();
-$logMessage .= "\nSous-total: " . var_export($sousTotal, true);
-$tps = $sousTotal * 0.05;
-$tvq = $sousTotal * 0.09975;
-$total = $sousTotal + $tps + $tvq;
-$logMessage .= "\nTPS: " . var_export($tps, true);
-$logMessage .= "\nTVQ: " . var_export($tvq, true);
-$logMessage .= "\nTotal: " . var_export($total, true);
-
-
+$conn = null;
 ?>
 
-<script>
-    console.log(<?php echo json_encode($logMessage); ?>);
-</script>
 
-<div class="panier">
-    <h2>Panier</h2>
-    <ul>
-        <?php foreach ($commande->getMicros() as $microId): ?>
-            <?php
-            // Fetch the Micro details using MicroManager
-            $micro = $microManager->getMicroById($microId);
-            ?>
-            <li>
-                <img src="./img/<?php echo $micro->get_image(); ?>" alt="<?php echo $micro->get_modele(); ?>" width="100">
-                <p>Modèle: <?php echo $micro->get_modele(); ?></p>
-                <p>Prix: <?php echo number_format($micro->get_prix(), 2); ?> $</p>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-    <div class="details">
-        <p>Quantité d'items: <?php echo $commande->getQuantite(); ?></p>
-        <p>Sous-total: <?php echo number_format($sousTotal, 2); ?> $</p>
-        <p>TPS (5%): <?php echo number_format($tps, 2); ?> $</p>
-        <p>TVQ (9.975%): <?php echo number_format($tvq, 2); ?> $</p>
-        <p><strong>Total : <?php echo number_format($total, 2); ?> $ </strong></p>
+<h2>Commande</h2>
+<form action="passerCommande.php" method="post" class="inscription">
+    <?php if (!$client): ?>
+        <fieldset class="active">
+            <legend>Informations personnelles</legend>
+            <label for="prenom">Prénom: </label>
+            <input type="text" name="prenom" id="prenom" required><br><br>
+
+            <label for="nom">Nom: </label>
+            <input type="text" name="nom" id="nom" required><br><br>
+
+            <label for="adresse">Adresse: </label>
+            <input type="text" name="adresse" id="adresse" required><br><br>
+
+            <label for="telephone">Téléphone: </label>
+            <input type="text" name="telephone" id="telephone" required><br><br>
+
+            <label for="email">Email: </label>
+            <input type="email" name="email" id="email" required><br><br>
+        </fieldset>
+    <?php endif; ?>
+
+    <fieldset>
+        <legend>Informations de la carte de crédit</legend>
+        <label for="creditCardName">Nom sur la carte: </label>
+        <input type="text" name="creditCardName" id="creditCardName" required><br><br>
+
+        <label for="creditCardNumber">Numéro de carte: </label>
+        <input type="text" name="creditCardNumber" id="creditCardNumber" required><br><br>
+
+        <label for="creditCardExpiration">Date d'expiration: </label>
+        <input type="text" name="creditCardExpiration" id="creditCardExpiration" required><br><br>
+
+        <label for="creditCardCVV">CVV: </label>
+        <input type="text" name="creditCardCVV" id="creditCardCVV" required><br><br>
+    </fieldset>
+
+    <div class="nav-arrows">
+        <button type="button" id="prev-arrow" class="hide">&larr;</button>
+        <button type="button" id="next-arrow">&rarr;</button>
     </div>
 
-    <form action="panier.php" method="post">
-        <button type="submit">Passer la commande</button>
-    </form>
-</div>
+    <input type="hidden" name="micros" value="<?php echo implode(',', $commande->getMicros()); ?>">
+    <input type="hidden" name="quantite" value="<?php echo $commande->getQuantite(); ?>">
+    <input type="hidden" name="prixTotal" value="<?php echo $commande->getPrixTotal(); ?>">
+
+    <button type="submit" class="hide">Passer la commande</button>
+</form>
+<p>Déjà inscrit? <a href="login.php">Connectez-vous ici</a></p>
 </main>
