@@ -2,25 +2,28 @@
 require_once("./classe/PDOFactory.php");
 require_once("./inc/header.php");
 
-$conn = PDOFactory::getMySQLConnection();
+$addMicroReview = $bdd->prepare('INSERT INTO revue (idMicro, idUser, titre, score, textRevue) VALUES (:idMicro, :idUser, :titre, :score, :textRevue)');
 
-$addMicroReview = $conn->prepare('INSERT INTO Microphone (idMicro, idUser, titre, score, textRevue) VALUES (:idMicro, :idUser, :titre, :score, :textRevue)');
+
 
 if(isset($_REQUEST['action'])){
     if($_REQUEST['action'] === 'ajoutReview'){
         if(isset($_SESSION['client'])){
-            $userId = $_SESSION['client']->getId();
+            $userId = (int) $_SESSION['client']->getId();
         }
         else{
-            $userId = 0;
+            $userId = 1;
         }
-        
-        $idMicro = htmlspecialchars($_REQUEST['micro']);
+        $idMicro = (int) htmlspecialchars($_REQUEST['micro']);
         $titre = htmlspecialchars($_REQUEST['titre']);
-        $rating = htmlspecialchars($_REQUEST['rating']);
+        $rating = (float) htmlspecialchars($_REQUEST['rating']);
         $review = htmlspecialchars($_REQUEST['textRevue']);
 
-        $addMicroReview->bindParam($idMicro, $userId, $titre, $rating, $review);
+        $addMicroReview->bindParam(':idMicro', $idMicro, PDO::PARAM_INT);
+        $addMicroReview->bindParam(':idUser', $userId, PDO::PARAM_INT);
+        $addMicroReview->bindParam(':titre', $titre, PDO::PARAM_STR);
+        $addMicroReview->bindParam(':score', $rating, PDO::PARAM_STR);
+        $addMicroReview->bindParam(':textRevue', $review, PDO::PARAM_STR);
         $addMicroReview->execute();
 
         $_REQUEST['action'] = '';

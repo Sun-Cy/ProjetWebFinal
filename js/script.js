@@ -78,18 +78,26 @@ function saveInfo(id){
 };
 
 function loadInfo(){
-    document.getElementById('micro').value = getCookie('micro');
-    document.getElementById('titre').value = getCookie('titre');
-    document.getElementById('rating').value = getCookie('rating');
-    document.getElementById('textRevue').value = getCookie('textRevue');
-    loadEtoile(getCookie('rating'));
+    if(getCookie('micro') !== ""){
+        document.getElementById('micro').value = getCookie('micro');
+    }
+    if(getCookie('titre') !== ""){
+        document.getElementById('titre').value = getCookie('titre');
+    }
+    if(getCookie('rating') !== ""){
+        document.getElementById('rating').value = getCookie('rating');
+        loadEtoile(getCookie('rating'));
+    }
+    if(getCookie('textRevue') !== ""){
+        document.getElementById('textRevue').value = getCookie('textRevue');
+    }
 };
 
 function effaceCookie(){
-    document.getElementById('micro').value = deleteCookie('micro');
-    document.getElementById('titre').value = deleteCookie('titre');
-    document.getElementById('rating').value = deleteCookie('rating');
-    document.getElementById('textRevue').value = deleteCookie('textRevue');
+    deleteCookie('micro');
+    deleteCookie('titre');
+    deleteCookie('rating');
+    deleteCookie('textRevue');
 };
 
 //fin Cedrik Caron
