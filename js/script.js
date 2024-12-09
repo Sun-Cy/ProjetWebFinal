@@ -78,18 +78,26 @@ function saveInfo(id){
 };
 
 function loadInfo(){
-    document.getElementById('micro').value = getCookie('micro');
-    document.getElementById('titre').value = getCookie('titre');
-    document.getElementById('rating').value = getCookie('rating');
-    document.getElementById('textRevue').value = getCookie('textRevue');
-    loadEtoile(getCookie('rating'));
+    if(getCookie('micro') !== ""){
+        document.getElementById('micro').value = getCookie('micro');
+    }
+    if(getCookie('titre') !== ""){
+        document.getElementById('titre').value = getCookie('titre');
+    }
+    if(getCookie('rating') !== ""){
+        document.getElementById('rating').value = getCookie('rating');
+        loadEtoile(getCookie('rating'));
+    }
+    if(getCookie('textRevue') !== ""){
+        document.getElementById('textRevue').value = getCookie('textRevue');
+    }
 };
 
 function effaceCookie(){
-    document.getElementById('micro').value = deleteCookie('micro');
-    document.getElementById('titre').value = deleteCookie('titre');
-    document.getElementById('rating').value = deleteCookie('rating');
-    document.getElementById('textRevue').value = deleteCookie('textRevue');
+    deleteCookie('micro');
+    deleteCookie('titre');
+    deleteCookie('rating');
+    deleteCookie('textRevue');
 };
 
 //fin Cedrik Caron
@@ -97,23 +105,6 @@ function effaceCookie(){
 
 
 //Ecrie par Nicolas Beaudoin
-
-
-//fin Nicolas Beaudoin
-
-
-
-//Ecrie par Simon Roy
-
-
-//fin Simon Roy
-
-
-//Ajout des listener pour le thème
-//document.getElementById("theme-std").addEventListener("click", changethemeStd);
-//document.getElementById("theme-sombre").addEventListener("click", changethemeSombre);
-
-//ajout listener pour les button droite eet gauche du formulaire
 let buttonDroit = document.getElementsByClassName("fa-chevron-circle-right");
 
 for (let i=0; i < buttonDroit.length; i++) {
@@ -149,6 +140,42 @@ function moveLeft() {
         }
     }
   }
+  let images = [];
+  images = document.getElementsByClassName("imgCarouselle");
+  for(let i = 1; i < images.length;i++){
+      images[i].classList.add("hide");
+  }
+  
+  setInterval(changerImage,7000);
+  
+  function changerImage(){
+  
+      for(let i = 0; i < images.length; i++){
+       
+          if(!images[i].classList.contains("hide")){
+              images[i].classList.add("hide");
+              images[(i+1) % images.length].classList.remove("hide");
+              break;
+          }
+  
+      }
+    }
+//fin Nicolas Beaudoin
+
+
+
+//Ecrie par Simon Roy
+
+
+//fin Simon Roy
+
+
+//Ajout des listener pour le thème
+//document.getElementById("theme-std").addEventListener("click", changethemeStd);
+//document.getElementById("theme-sombre").addEventListener("click", changethemeSombre);
+
+//ajout listener pour les button droite eet gauche du formulaire
+
 
 //ajouter un listener pour la liste d'option pour les poste
 //document.getElementById("poste").addEventListener("change", changeDescriptionPoste)
@@ -309,26 +336,7 @@ function showDesc(evt){
 });
 
 
-let images = [];
-images = document.getElementsByClassName("imgCarouselle");
-for(let i = 1; i < images.length;i++){
-    images[i].classList.add("hide");
-}
 
-setInterval(changerImage,7000);
-
-function changerImage(){
-
-    for(let i = 0; i < images.length; i++){
-     
-        if(!images[i].classList.contains("hide")){
-            images[i].classList.add("hide");
-            images[(i+1) % images.length].classList.remove("hide");
-            break;
-        }
-
-    }
- }
 
 
  

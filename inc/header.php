@@ -41,6 +41,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == "connexion"){
                     <li><a href="listeMicro.php">Microphones</a></li>
                     <li><a href="ajoutMicro.php">Ajout</a></li>
                     <li><a href="review.php">Revue</a></li>
+                    <li><a href="login.php" class="site-icon">Ouvrir une session</a></li>
                 </ul>
                 <a href="panier.php" class="site-icon">
                     <img src="img/shoppingCart.png" alt="Panier Icon" class="icon">

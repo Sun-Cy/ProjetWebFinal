@@ -1,7 +1,6 @@
 <?php
 include_once("inc/header.php"); 
 
- $bdd=PDOFactory::getMySQLConnection();   
 $mm = new MicroManager($bdd);
 
 if(isset($_REQUEST['marque'])){ 
