@@ -100,7 +100,7 @@ else { ?>
     <input type="link" name="lien" required>
     <br>
     <label for="">Cartouche: </label>
-    <select name="cartouche" id="cartouches" required>
+    <select name="cartouche" id="cartouches">
     <?php
         $cartouches = $mm->get_cartouche();
 
@@ -119,13 +119,13 @@ else { ?>
  
     <br>
     <label for="">Fréquence Minimum: </label>
-    <input type="number" name="frequenceMin">
+    <input type="number" name="frequenceMin" required>
     <br>
     <label for="">Fréquence Maximum: </label>
-    <input type="number" name="frequenceMax">
+    <input type="number" name="frequenceMax" required>
     <br>
     <label for="">Max SPL (Sound Pressure Level en dB): </label>
-    <input type="number" name="maxSPL">
+    <input type="number" name="maxSPL" required>
     <br>
     <label for="">Rated Impedance: </label>
     <input type="number" name="ratedImpedance">
