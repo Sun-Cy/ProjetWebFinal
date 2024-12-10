@@ -2,8 +2,9 @@
 require_once("./inc/header.php");
 ?>
 
-<h2>Inscription</h2>
+
 <form action="./traitement.php" method="post" class="inscription">
+<h2>Inscription</h2>
     <fieldset class="active">
         <legend>Informations personnelles</legend>
         <label for="prenom">Prénom: </label>
@@ -39,7 +40,8 @@ require_once("./inc/header.php");
     </div>
 
     <button type="submit" class="hide">S'inscrire</button>
+    <p>Déjà inscrit? <a href="login.php">Connectez-vous ici</a></p>
 </form>
-<p>Déjà inscrit? <a href="login.php">Connectez-vous ici</a></p>
+
 
 </main>
