@@ -164,23 +164,6 @@ function moveLeft() {
 
 
 
-//Ecrie par Simon Roy
-
-
-//fin Simon Roy
-
-
-//Ajout des listener pour le thème
-//document.getElementById("theme-std").addEventListener("click", changethemeStd);
-//document.getElementById("theme-sombre").addEventListener("click", changethemeSombre);
-
-//ajout listener pour les button droite eet gauche du formulaire
-
-
-//ajouter un listener pour la liste d'option pour les poste
-//document.getElementById("poste").addEventListener("change", changeDescriptionPoste)
-
-//Ajout des listener pour les boutons annuler une réservation
 elems = document.getElementsByClassName("btn-annuler");
 
 for (let i=0, l = elems.length; i < l; i++) {
