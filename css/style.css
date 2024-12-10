@@ -40,7 +40,6 @@ body {
 article, form {
     margin: auto;
     max-width: 980px;
-    /*min-height: 95vh;*/
     padding: 15px;
     border-radius: 20px;
     color: white;
@@ -89,7 +88,7 @@ footer {
     background-color: black;
 }
 
-/* Input, select, and textarea styling */
+
 #revue-form select,
 #revue-form input[type="text"],
 #revue-form textarea,
@@ -116,7 +115,7 @@ footer {
 
 /* Button hover effect */
 #revue-form button:hover {
-    background-color: #0056b3; /* Darker shade on hover */
+    background-color: #0056b3; 
 }
 
 @media (min-width: 981px) {
