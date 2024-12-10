@@ -3,8 +3,6 @@
     --blanc: white;
     --grispale: #6D6D6D;
     --bleugris: #6E7A96;
-    --success-color: #28a745;
-    --error-color: #dc3545;
     --primary-color: #007BFF;
     --secondary-color: #0056b3;
 }
@@ -584,11 +582,9 @@ form.inscription fieldset.active {
 }
 
 .message.success {
-    background-color: var(--success-color);
     color: black;
 }
 
 .message.error {
-    background-color: var(--error-color);
     color: black;
 }

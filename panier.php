@@ -24,7 +24,7 @@ if (!isset($_SESSION['commande'])) {
     $commande = unserialize($_SESSION['commande']);
 }
 
-/* Exemple de commande fictive pour les tests
+ //Exemple de commande fictive pour les tests
 if (!$commande) {
     $commande = new Commande(null, null, [], null, 0, 0.0);
     $commande->addMicro(1); // Ajouter un micro avec l'ID 1
@@ -33,7 +33,7 @@ if (!$commande) {
     $commande->setPrixTotal(299.98); // Définir le prix total
     $_SESSION['commande'] = serialize($commande);
 }
-    */
+    
 
 $idClient = isset($_SESSION['client']) ? unserialize($_SESSION['client'])->getId() : null;
 
