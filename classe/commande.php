@@ -67,13 +67,6 @@ class Commande {
         $this->prixTotal = $prixTotal;
     }
 
-    // Ensure the object is correctly serialized and unserialized
-    public function __sleep() {
-        return ['idCommande', 'idClient', 'micros', 'dateCommande', 'quantite', 'prixTotal'];
-    }
-
-    public function __wakeup() {
-        // Reinitialize any resources or connections if needed
-    }
+   
 }
 ?>

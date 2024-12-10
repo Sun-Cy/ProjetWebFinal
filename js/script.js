@@ -228,7 +228,7 @@ function showDesc(evt){
     const form = document.querySelector("form");
     
     form.addEventListener("submit", function(event) {
-        // Validate credit card number (simple Luhn algorithm check)
+        // Valide le numéro de carte de crédit
         const creditCardNumber = document.getElementById("creditCardNumber").value;
         if (!isValidCreditCardNumber(creditCardNumber)) {
             alert("Numéro de carte invalide.");
@@ -236,7 +236,7 @@ function showDesc(evt){
             return;
         }
 
-        // Validate credit card expiration date (MM/YY format)
+        // valide la date d'expiration
         const creditCardExpiration = document.getElementById("creditCardExpiration").value;
         if (!isValidExpirationDate(creditCardExpiration)) {
             alert("Date d'expiration invalide. Utilisez le format MM/YY.");
@@ -244,7 +244,7 @@ function showDesc(evt){
             return;
         }
 
-        // Validate CVV (3 or 4 digits)
+        // Valide le CVV
         const creditCardCVV = document.getElementById("creditCardCVV").value;
         if (!/^\d{3,4}$/.test(creditCardCVV)) {
             alert("CVV invalide. Entrez 3 ou 4 chiffres.");
@@ -254,7 +254,7 @@ function showDesc(evt){
     });
 
     function isValidCreditCardNumber(value) {
-        // Luhn algorithm
+        // algorithm de lunh pour valider le numero de carte de credit source : https://gist.github.com/DiegoSalazar/4075533
         let sum = 0;
         let shouldDouble = false;
         for (let i = value.length - 1; i >= 0; i--) {
@@ -272,19 +272,28 @@ function showDesc(evt){
     }
 
     function isValidExpirationDate(value) {
+        // Cette fonction valide la date d'expiration d'une carte de crédit
         const match = value.match(/^(0[1-9]|1[0-2])\/?([0-9]{2})$/);
         if (!match) {
+            // Si la valeur ne correspond pas au format attendu (MM/AA), retourner false
             return false;
         }
+        
+        // Extraire le mois et l'année des groupes correspondants
         const expMonth = parseInt(match[1], 10);
-        const expYear = parseInt(match[2], 10) + 2000;
+        const expYear = parseInt(match[2], 10) + 2000; // Convertir AA en AAAA
+        
+        // Obtenir la date actuelle, le mois et l'année
         const currentDate = new Date();
-        const currentMonth = currentDate.getMonth() + 1;
+        const currentMonth = currentDate.getMonth() + 1; // Les mois sont indexés à partir de zéro, donc ajouter 1
         const currentYear = currentDate.getFullYear();
+        
+        // Vérifier si l'année d'expiration est supérieure à l'année actuelle
+        // ou si l'année d'expiration est la même que l'année actuelle et le mois d'expiration est supérieur ou égal au mois actuel
         return expYear > currentYear || (expYear === currentYear && expMonth >= currentMonth);
     }
 
-    // Inscription form navigation
+    //navigation entre les fieldset
  const fieldsets = document.querySelectorAll("form.inscription fieldset");
  const prevArrow = document.getElementById("prev-arrow");
  const nextArrow = document.getElementById("next-arrow");
@@ -316,6 +325,15 @@ function showDesc(evt){
 
  updateFieldsets();
 
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const hamburgerMenu = document.getElementById("hamburger-menu");
+    const menuItems = document.getElementById("menu-items");
+
+    hamburgerMenu.addEventListener("click", function() {
+        menuItems.classList.toggle("show");
+    });
 });
 
 

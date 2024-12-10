@@ -1,20 +1,19 @@
 <?php
-session_start();
 
-include_once("./inc/autoLoader.php");
-require_once("./classe/PDOFactory.php");
 require_once("./inc/header.php");
 
 $clientManager = new ClientManager($bdd);
 $microManager = new MicroManager($bdd);
 
+// Si l'action est de vider le panier, supprimer la commande de la session et du cookie
 if (isset($_POST['action']) && $_POST['action'] === 'vider') {
     unset($_SESSION['commande']);
-    setcookie('commande', '', time() - 3600, "/"); // Delete the cookie
+    setcookie('commande', '', time() - 3600, "/"); 
     header("Location: panier.php");
     exit();
 }
 
+// Vérifier si une commande existe dans la session ou le cookie
 if (!isset($_SESSION['commande'])) {
     if (isset($_COOKIE['commande'])) {
         $commande = unserialize($_COOKIE['commande']);
@@ -27,17 +26,18 @@ if (!isset($_SESSION['commande'])) {
 
 $idClient = isset($_SESSION['client']) ? unserialize($_SESSION['client'])->getId() : null;
 
+// Si la méthode de la requête est POST et qu'aucune action n'est définie, rediriger vers passerCommande.php
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['action'])) {
     header("Location: passerCommande.php");
     exit();
 }
 
+// Calculer les totaux
 $sousTotal = $commande ? $commande->getPrixTotal() : 0;
 $tps = $sousTotal * 0.05;
 $tvq = $sousTotal * 0.09975;
 $total = $sousTotal + $tps + $tvq;
 
-$conn = null;
 ?>
 
 <div class="panier">
