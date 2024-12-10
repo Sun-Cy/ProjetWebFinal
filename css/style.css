@@ -178,7 +178,7 @@ nav ul {
 }
 
 nav ul li {
-    margin: 0 15px;
+    margin: 5px;
 }
 
 nav a {
@@ -195,6 +195,14 @@ nav a {
 nav a:hover {
     background-color: var(--bleugris);
     color: var(--blanc);
+}
+@media (max-width: 981px) {
+    nav ul{
+        display: grid;
+    }
+    nav li{
+        margin: 5px;
+    }
 }
 
 @keyframes fadeinout {
