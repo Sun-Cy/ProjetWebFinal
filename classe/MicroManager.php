@@ -36,17 +36,19 @@ CONST GET_MICRO_BY_ID="SELECT mi.idMicro, m.marque,mi.modele,g.garantie,i.interf
     public function getMicroById(int $idMicro): Micro {
         
         $query = $this->_db->prepare(self::GET_MICRO_BY_ID);
-        $query->execute(array("idMicro" => $idMicro));
+        $query->bindParam(":idMicro",$idMicro);
+        $query->execute();
         $dbResult = $query->fetch();
         
-        assert(!empty($dbResult), 'didnt work man');
+        assert(!empty($dbResult), 'didnt work man'); // pour le trouver le problème car ça ne marchait pas
         
         return new Micro($dbResult);
       }   
       public function insertMicro($marque,$modele,$garantie,$interface,$img,$prix,$lien,$cartouche,$frequMin,$frequMax,$maxSPL,$ratedImp,$rgb){
 
         $query = $this->_db->prepare(self::GET_MARQUE);
-        $query->execute(array("marque" => $marque));
+        $query->bindParam(":marque",$marque);
+        $query->execute();
         $dbResult = $query->fetchAll();
 
         if(empty($dbResult)){
