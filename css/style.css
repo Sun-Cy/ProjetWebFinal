@@ -3,10 +3,14 @@
     --blanc: white;
     --grispale: #6D6D6D;
     --bleugris: #6E7A96;
+    --success-color: #28a745;
+    --error-color: #dc3545;
+    --primary-color: #007BFF;
+    --secondary-color: #0056b3;
 }
 
-/*utility*/
-.center{
+/* Utility classes */
+.center {
     text-align: center;
 }
 
@@ -36,6 +40,7 @@ body {
 article, form {
     margin: auto;
     max-width: 980px;
+    /*min-height: 95vh;*/
     padding: 15px;
     border-radius: 20px;
     color: white;
@@ -84,7 +89,7 @@ footer {
     background-color: black;
 }
 
-
+/* Input, select, and textarea styling */
 #revue-form select,
 #revue-form input[type="text"],
 #revue-form textarea,
@@ -98,7 +103,7 @@ footer {
     text-align: center;
 }
 
-/* Button style */
+/* Button styling */
 #revue-form button {
     background-color: var(--bleugris);
     color: white; 
@@ -111,7 +116,7 @@ footer {
 
 /* Button hover effect */
 #revue-form button:hover {
-    background-color: #0056b3; 
+    background-color: #0056b3; /* Darker shade on hover */
 }
 
 @media (min-width: 981px) {
@@ -198,14 +203,14 @@ nav a:hover {
     50% { opacity: 1; }
 }
 
-.imgCarouselle{
+.imgCarouselle {
     border-radius: 10%;
     height: 20%;
     width: 33%;
     animation: fadeinout 7s forwards;
 }
 
-.wrapperImages{
+.wrapperImages {
     display: flex;
     justify-content: center;
     justify-items: center;
@@ -217,12 +222,12 @@ nav a:hover {
     grid-row-gap: 5px;
 }
 
-.fieldSets{
+.fieldSets {
     display: flex;
     justify-content: center;
 }
 
-.frm-carrière .row{
+.frm-carrière .row {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -230,15 +235,12 @@ nav a:hover {
 
 .frm-carrière fieldset {
     color: black;
-    width:75%;
+    width: 75%;
     border: none;
 }
 
-.fa-chevron-circle-left{
-    justify-content: center;
-}
-
-.fa-chevron-circle-right{
+.fa-chevron-circle-left,
+.fa-chevron-circle-right {
     justify-content: center;
 }
 
@@ -248,7 +250,7 @@ nav a:hover {
     grid-column-start: 1;
 }
 
-.frm-carrière input{
+.frm-carrière input {
     text-align: left;
     grid-column-start: 2;
 }
@@ -258,19 +260,19 @@ nav a:hover {
 }
 
 .frm-carrière i.fa-5 {
-    margin : 0 30px;
+    margin: 0 30px;
     font-size: 3em;
 }
 
 span.vide {
-    width:42px;
+    width: 42px;
 }
 
-.microImg{
+.microImg {
     margin-right: 5%;
 }
 
-.micro img{
+.micro img {
     max-width: 500px;
     max-height: 500px;
     height: 100%;
@@ -278,18 +280,18 @@ span.vide {
     border-radius: 20%;
 }
 
-.micro label{
+.micro label {
     font-weight: bold;
     text-align: right;
 }
 
-.text{
+.text {
     display: flex;
     flex-direction: column;
     align-self: center;
 }
 
-.micro{
+.micro {
     display: flex;
     width: 100%;
     justify-content: center;
@@ -297,14 +299,11 @@ span.vide {
 
 /* Login Form Styles */
 form.login {
-    background-color: #fff;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 400px;
     margin: 0 auto;
-    border: 1px solid #ccc;
+    height:fit-content;
+   
 }
 
 form.login label {
@@ -351,9 +350,7 @@ form.login a:hover {
     text-decoration: underline;
 }
 
-/* Inscription Form Styles */
-
-.containerRegister {
+.containerForm {
     background-color: #fff;
     border-radius: 8px;
     padding: 20px;
@@ -361,22 +358,13 @@ form.login a:hover {
     width: 100%;
     max-width: 600px;
     margin: 20px auto;
+    height: auto; 
 }
 
-.containerRegister h2 {
+.containerForm h2 {
     text-align: center;
     color: #333;
     margin-bottom: 20px;
-}
-
-form.inscription {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
 }
 
 form.inscription fieldset {
@@ -408,15 +396,15 @@ form.inscription input[type="password"] {
 
 form.inscription button {
     width: 50%;
-    padding: 20px;
-    height: fit-content;
+    padding: 10px;
     background-color: #007BFF;
     border: none;
     border-radius: 4px;
     color: #fff;
     font-size: 16px;
     cursor: pointer;
-    margin:auto;
+    margin: auto;
+    display: block;
 }
 
 form.inscription button:hover {
@@ -543,7 +531,7 @@ form.inscription fieldset.active {
 
 .panier form button {
     padding: 10px 20px;
-    background-color: var(--bleuclair);
+    background-color: var(--primary-color);
     border: none;
     border-radius: 4px;
     color: #fff;
@@ -552,7 +540,7 @@ form.inscription fieldset.active {
 }
 
 .panier form button:hover {
-    background-color: var(--bleufonce);
+    background-color: var(--secondary-color);
 }
 
 .empty-cart {
@@ -572,23 +560,22 @@ form.inscription fieldset.active {
     color: #333;
 }
 
-.container{
+.container {
     background-color: white;
     border-radius: 20px;
-    width:30%;
-    margin:auto;
+    width: 30%;
+    margin: auto;
     padding: 20px;
     margin-top: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .message {
-    
     text-align: center;
     padding: 10px;
     font-size: 20px;
-    
 }
+
 .message.success {
     background-color: var(--success-color);
     color: black;

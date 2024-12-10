@@ -1,8 +1,8 @@
 <?php
 require_once("./inc/header.php");
 ?>
-
-<h2>Login</h2>
+<div class="containerForm">
+<h2>Heureux de vous revoir ! Entrez vos informations.</h2>
 <form action="./traitement.php" method="post" class="login">
     <label for="username">Nom d'utilisateur: </label>
     <input type="text" name="username" id="username" required><br><br>
@@ -15,4 +15,5 @@ require_once("./inc/header.php");
     <button type="submit">Se connecter</button>
     <p>Pas encore inscrit? <a href="inscription.php">Inscrivez-vous</a></p>
 </form>
+</div>
 </main>
