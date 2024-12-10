@@ -36,7 +36,6 @@ body {
 article, form {
     margin: auto;
     max-width: 980px;
-    min-height: 95vh;
     padding: 15px;
     border-radius: 20px;
     color: white;
@@ -48,6 +47,99 @@ footer {
     max-width: 980px;
     text-align: center;
 }
+/*liste de micro*/
+#liste-micro{
+    padding: 10px;
+    border-radius: 20px;
+    font-size: xx-large;
+    color: white;
+    background-color: black;
+    text-decoration: none;
+}
+#liste-micro:hover{
+    background-color: var(--bleugris);
+}
+
+#micro-liste-container {
+     /* center sans toucher au body*/
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    width: max-content; 
+}
+/*fin liste de micro*/
+
+/*Debut Revue*/
+#revue-form {
+    display: flex;
+    flex-direction: column; 
+    gap: 15px;
+    max-width: 100%; 
+    margin: 0 auto;
+    padding: 20px; 
+    box-sizing: border-box;
+    background-color: black;
+}
+
+/* Input, select, and textarea styling */
+#revue-form select,
+#revue-form input[type="text"],
+#revue-form textarea,
+#revue-form button {
+    width: 100%; 
+    padding: 10px; 
+    font-size: 1rem; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    box-sizing: border-box; 
+    text-align: center;
+}
+
+/* Button styling */
+#revue-form button {
+    background-color: var(--bleugris);
+    color: white; 
+    border: none;
+    cursor: pointer; 
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease; 
+}
+
+/* Button hover effect */
+#revue-form button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+@media (min-width: 981px) {
+    #revue-form {
+        min-height: none;
+        height: auto;
+        display: grid;
+        grid: 50px 350px 50px / auto auto auto;
+        max-width: 900;
+    } 
+    #revue-form select{
+        grid-area: 1/1/span 1/ span 1;
+    }
+    #revue-form #titre{
+        grid-area: 1/2/span 1/ span 1;
+    }
+    #revue-form div{
+        grid-area: 1/3/span 1/ span 1;
+    }
+    #revue-form #textRevue{
+        grid-area: 2/1/span 1/ span 3;
+    }
+    #revue-form button{
+        grid-area: 3/3/span 1/ span 1;
+    }
+}
+/*fin Revue*/
+
 
 /* Main Menu */
 nav.main-menu {
