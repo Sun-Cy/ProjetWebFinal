@@ -327,14 +327,7 @@ function showDesc(evt){
 
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-    const hamburgerMenu = document.getElementById("hamburger-menu");
-    const menuItems = document.getElementById("menu-items");
-
-    hamburgerMenu.addEventListener("click", function() {
-        menuItems.classList.toggle("show");
-    });
-});
+//fin simon
 
 
 
