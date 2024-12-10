@@ -67,6 +67,12 @@ class Commande {
         $this->prixTotal = $prixTotal;
     }
 
+    public function addMicro($microId) {
+        $this->micros[] = $microId;
+    }
+
+   
+
    
 }
 ?>
